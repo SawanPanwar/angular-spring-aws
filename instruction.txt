@@ -1,0 +1,43 @@
+# Step 1: Download the project angular-spring-aws from GitHub
+https://github.com/SawanPanwar/angular-spring-aws.git
+
+# Step 2: Create a new Angular project named angular-aws inside angular-spring-aws folder
+cd angular-spring-aws
+ng new angular-aws
+
+# Step 3: Delete the src folder from the angular-aws project
+
+# Step 4: Copy src, Dockerfile, and docker-entrypoint.sh from the angular folder to angular-aws
+
+# Step 5: Open VS Code in the angular-spring-aws directory
+code .
+
+# Step 6: Navigate to the angular-aws folder
+cd angular-aws
+
+# Step 7: Build the Angular project with a specific base href
+ng build --base-href /angular-aws/
+
+# Step 8: Navigate back to the angular-spring-aws root directory
+cd ..
+
+# Step 9: Build the Docker images using docker-compose
+docker-compose build
+
+# Step 10: Start the Docker containers using docker-compose
+docker-compose up
+
+# Step 11: Stop and remove the Docker containers
+
+# Step 12: Log in to Docker Hub
+docker login
+
+# Step 13: Create new tags for the Docker images
+docker tag angular-spring-aws-frontend username/angular-frontend:latest
+docker tag angular-spring-aws-backend username/spring-backend:latest
+docker tag mysql:8.0 username/mysql:8.0
+
+# Step 14: Push the Docker images to Docker Hub
+docker push username/angular-frontend:latest
+docker push username/spring-backend:latest
+docker push username/mysql:8.0
