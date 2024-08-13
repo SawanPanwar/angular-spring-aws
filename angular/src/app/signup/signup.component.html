@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+<div align="center">
+    <font color="navy">
+        <h1>User Registration</h1>
+    </font>
+</div>
+<div align="center">
+    <h3>
+        <font color="green">{{form.message}}</font>
+    </h3>
+</div>
+<table align="center">
+    <tr>
+        <th align="left">First Name :</th>
+        <td><input type="text" [(ngModel)]="form.data.firstName" name="firstName" /></td>
+        <td *ngIf="form.inputerror.firstName != null" style="position: fixed;">
+            <font color="red">{{form.inputerror.firstName}}</font>
+        </td>
+    </tr>
+    <tr>
+        <th align="left">Last Name :</th>
+        <td><input type="text" [(ngModel)]="form.data.lastName" name="lastName" /></td>
+        <td *ngIf="form.inputerror.lastName != null" style="position: fixed;">
+            <font color="red"> {{form.inputerror.lastName}}</font>
+        </td>
+    </tr>
+    <tr>
+        <th align="left">Login ID :</th>
+        <td><input type="text" [(ngModel)]="form.data.loginId" name="loginId" /></td>
+        <td *ngIf="form.inputerror.loginId != null" style="position: fixed;">
+            <font color="red">{{form.inputerror.loginId}}</font>
+        </td>
+    </tr>
+    <tr>
+        <th align="left">Password :</th>
+        <td><input type="text" [(ngModel)]="form.data.password" name="password" /></td>
+        <td *ngIf="form.inputerror.password != null" style="position: fixed;">
+            <font color="red"> {{form.inputerror.password}}</font>
+        </td>
+    </tr>
+    <tr>
+        <th align="left">DOB :</th>
+        <td><input type="date" [(ngModel)]="form.data.dob" name="dob" style="width: 98%;" /></td>
+        <td *ngIf="form.inputerror.dob != null" style="position: fixed;">
+            <font color="red"> {{form.inputerror.dob}}</font>
+        </td>
+    </tr>
+    <tr>
+        <th></th>
+        <td><button (click)="signUp()">signUp</button></td>
+    </tr>
+</table>

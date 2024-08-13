@@ -1,0 +1,20 @@
+<table>
+    <tr style="width: 100%;">
+        <td style="width: 98%;">
+            <div *ngIf="isLogin()">
+                <h3><b>Hi, {{form.data.firstName }} ( {{form.data.roleName}} )</b></h3>
+                <a [routerLink]="['/user']"><b>Add User</b></a> |
+                <a [routerLink]="['/userlist']"><b>User List</b></a> |
+                <a (click)="logout()">
+                    <font color="blue"><b>Logout</b></font>
+                </a>
+            </div>
+            <div *ngIf="!isLogin()">
+                <h3>Hi, Guest</h3>
+                <a [routerLink]="['/welcome']"><b>Welcome</b></a> |
+                <a [routerLink]="['/login']"><b>Login</b></a>
+            </div>
+        </td>
+    </tr>
+</table>
+<hr>
