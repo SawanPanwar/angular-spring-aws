@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./angular-aws
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+    environment:
+      - BACKEND_URL=http://backend-container:8080
+    depends_on:
+      - backend
+    networks:
+      - my-network
+
+  backend:
+    container_name: backend-container
+    build:
+      context: ./spring-boot-aws
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/spring_boot_simple
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    restart: unless-stopped
+    networks:
+      - my-network
+
+  mysql:
+    container_name: mysql-container
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: spring_boot_simple
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
