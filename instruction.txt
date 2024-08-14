@@ -41,3 +41,87 @@ docker tag mysql:8.0 username/mysql:8.0
 docker push username/angular-frontend:latest
 docker push username/spring-backend:latest
 docker push username/mysql:8.0
+
+# Step 14: create ec2 instance on aws
+
+# Step 15: open command prompt and connect to ec2 instance
+
+ssh -i "pem-file-path" ubuntu@public-ip-address
+
+for eg:- ssh -i "C:\Users\Lenovo\Downloads\Spring.pem" ubuntu@13.126.32.204
+
+# Step 15: install docker on aws ec2 instance
+
+sudo kill -9 1962
+sudo killall apt apt-get
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+sudo apt-get update
+sudo apt-get install -y docker-ce
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker $USER
+docker --version
+
+# Step 16: also run this command to give permission
+
+sudo usermod -aG docker $USER
+groups $USER
+sudo systemctl restart docker
+ls -l /var/run/docker.sock
+sudo chmod 666 /var/run/docker.sock
+groups $USER
+sudo systemctl restart docker
+
+# Step 17: docker login with username & password
+
+# Step 18: Pull the Docker images to Docker Hub
+docker pull username/angular-frontend:latest
+docker pull username/spring-backend:latest
+docker pull username/mysql:8.0
+
+# Step 19: create a network on aws
+docker network create my-network
+
+# Step 20: run mysql-container
+docker run -d --name mysql-container --network my-network -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=spring_boot_simple username/mysql:8.0
+
+docker exec -it mysql-container bash
+
+# Step 21: run backend-container
+docker run -d --name backend-container --network my-network -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/spring_boot_simple -e SPRING_DATASOURCE_USERNAME=root -e SPRING_DATASOURCE_PASSWORD=root username/spring-backend:latest
+
+# Step 20: run frontend-container
+docker run -d --name frontend-container --network my-network -p 4200:80 -e BACKEND_URL=http://public-ip-address:8080 username/angular-frontend:latest
+
+
+http://public-ip-address:4200/angular-aws/#/signup
+
+
+# some docker commands
+================================
+
+docker stop frontend-container
+docker stop backend-container
+docker stop mysql-container
+
+================================
+
+docker rm frontend-container
+docker rm backend-container
+docker rm mysql-container
+
+=================================
+
+docker restart frontend-container
+docker restart backend-container
+docker restart mysql-container
+
+
+
+
