@@ -10,6 +10,9 @@ COPY /src/assets/env.js /usr/share/nginx/html/assets/env.js
 # Copy the entrypoint script to the container
 COPY docker-entrypoint.sh /usr/share/nginx/html/
 
+# Verify the file is there
+RUN ls -l /usr/share/nginx/html/
+
 # Copy the entrypoint script and set executable permissions
 COPY --chmod=755 docker-entrypoint.sh /usr/share/nginx/html/
 
