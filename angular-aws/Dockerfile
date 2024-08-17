@@ -14,7 +14,7 @@ COPY docker-entrypoint.sh /usr/share/nginx/html/
 RUN ls -l /usr/share/nginx/html/
 
 # Copy the entrypoint script and set executable permissions
-COPY --chmod=755 docker-entrypoint.sh /usr/share/nginx/html/
+RUN chmod +x /usr/share/nginx/html/docker-entrypoint.sh
 
 # Expose port 80
 EXPOSE 80
