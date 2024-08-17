@@ -10,8 +10,8 @@ COPY /src/assets/env.js /usr/share/nginx/html/assets/env.js
 # Copy the entrypoint script to the container
 COPY docker-entrypoint.sh /usr/share/nginx/html/
 
-# Ensure the entrypoint script is executable
-RUN chmod +x /usr/share/nginx/html/docker-entrypoint.sh
+# Copy the entrypoint script to the container
+COPY --chmod=+x docker-entrypoint.sh /usr/share/nginx/html/
 
 # Expose port 80
 EXPOSE 80
